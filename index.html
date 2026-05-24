@@ -3,9 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TicketHub | Event Ticket Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #f5f7fb;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid #dde3ee;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .logo-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #526173;
+            font-weight: 700;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            color: #ffffff;
+            background: #d9480f;
+        }
+
+        .button-primary:hover {
+            background: #bf3e0c;
+        }
+
+        .button-secondary {
+            color: #172033;
+            background: #ffffff;
+            border-color: #cdd6e2;
+        }
+
+        .button-secondary:hover {
+            border-color: #93a3b8;
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(11, 27, 45, 0.88), rgba(11, 27, 45, 0.42)),
+                url("https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1600&q=80") center/cover;
+        }
+
+        .hero-inner {
+            width: min(1120px, calc(100% - 32px));
+            min-height: 620px;
+            margin: 0 auto;
+            display: grid;
+            align-items: center;
+            padding: 72px 0 88px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .eyebrow {
+            margin-bottom: 14px;
+            color: #9ee7de;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 760px;
+            font-size: clamp(2.4rem, 7vw, 5.4rem);
+            line-height: 0.98;
+            letter-spacing: 0;
+        }
+
+        .hero p {
+            max-width: 540px;
+            margin-top: 22px;
+            color: #e5eef7;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .search-panel {
+            width: min(1120px, calc(100% - 32px));
+            margin: -44px auto 0;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr auto;
+            gap: 12px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.12);
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        label {
+            color: #526173;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 46px;
+            padding: 0 12px;
+            color: #172033;
+            background: #f8fafc;
+            border: 1px solid #cdd6e2;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 54px auto 72px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            letter-spacing: 0;
+        }
+
+        .section-heading p {
+            max-width: 430px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .event-card {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+        }
+
+        .event-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        .event-body {
+            padding: 18px;
+        }
+
+        .event-meta {
+            margin-bottom: 10px;
+            color: #0f766e;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .event-body h3 {
+            font-size: 1.18rem;
+            line-height: 1.35;
+        }
+
+        .event-body p {
+            margin: 10px 0 16px;
+            color: #64748b;
+            line-height: 1.55;
+        }
+
+        .footer {
+            padding: 28px 16px;
+            color: #e5eef7;
+            text-align: center;
+            background: #172033;
+        }
+
+        @media (max-width: 860px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links,
+            .nav-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .search-panel,
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-panel .button {
+                width: 100%;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-inner {
+                min-height: 540px;
+                padding-top: 48px;
+            }
+
+            .nav-links {
+                gap: 14px;
+                font-size: 0.92rem;
+            }
+
+            .nav-actions .button {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="logo" href="index.html" aria-label="TicketHub home">
+                <span class="logo-mark">T</span>
+                <span>TicketHub</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#events">Events</a>
+                <a href="booking.html">Tickets</a>
+                <a href="#support">Support</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="button button-secondary" href="#login">Login</a>
+                <a class="button button-primary" href="booking.html">Book Tickets</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="eyebrow">Concerts, sports, theatre and festivals</div>
+                <h1>Book tickets for your next big event.</h1>
+                <p>Find popular events, choose your seats, and reserve tickets quickly from one simple booking page.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="booking.html">Get Tickets</a>
+                    <a class="button button-secondary" href="#events">Browse Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form class="search-panel" aria-label="Search events">
+        <div class="field">
+            <label for="event-search">Event</label>
+            <input id="event-search" type="search" placeholder="Search concerts, games, shows">
+        </div>
+        <div class="field">
+            <label for="location">Location</label>
+            <input id="location" type="text" placeholder="City or venue">
+        </div>
+        <div class="field">
+            <label for="category">Category</label>
+            <select id="category">
+                <option>All categories</option>
+                <option>Concert</option>
+                <option>Sports</option>
+                <option>Theatre</option>
+                <option>Festival</option>
+            </select>
+        </div>
+        <button class="button button-primary" type="submit">Search</button>
+    </form>
+
+    <main>
+        <section id="events">
+            <div class="section-heading">
+                <div>
+                    <h2>Featured Tickets</h2>
+                </div>
+                <p>Choose from high-demand events and continue to the ticket booking page when you are ready.</p>
+            </div>
+
+            <div class="event-grid">
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80" alt="Crowd at a live concert">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Friday 8:00 PM</div>
+                        <h3>Neon Nights Live Concert</h3>
+                        <p>Premium seats and standard admission available for a high-energy city concert.</p>
+                        <a class="button button-primary" href="booking.html">Ticket</a>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80" alt="Stadium lights during a sports match">
+                    <div class="event-body">
+                        <div class="event-meta">Sports | Sunday 3:30 PM</div>
+                        <h3>Championship Final Match</h3>
+                        <p>Reserve your match-day ticket and pick a seat near the action.</p>
+                        <a class="button button-primary" href="booking.html">Ticket</a>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80" alt="Theatre stage with red curtains">
+                    <div class="event-body">
+                        <div class="event-meta">Theatre | Saturday 7:00 PM</div>
+                        <h3>Broadway Evening Show</h3>
+                        <p>Enjoy an elegant stage performance with easy online booking.</p>
+                        <a class="button button-primary" href="booking.html">Ticket</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer id="support" class="footer">
+        <p>TicketHub support | Secure event ticket booking</p>
+    </footer>
 </body>
 </html>
