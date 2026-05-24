@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | TicketHub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #f5f7fb;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ナビバー */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid #dde3ee;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .logo-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #526173;
+            font-weight: 700;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .button-primary {
+            color: #ffffff;
+            background: #d9480f;
+        }
+
+        .button-primary:hover {
+            background: #bf3e0c;
+        }
+
+        .button-secondary {
+            color: #172033;
+            background: #ffffff;
+            border-color: #cdd6e2;
+        }
+
+        .button-secondary:hover {
+            border-color: #93a3b8;
+        }
+
+        /* メインコンテンツ */
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 60px auto 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        /* 左側：説明エリア */
+        .login-intro {
+            padding-right: 24px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: #0f766e;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .login-intro h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 18px;
+        }
+
+        .login-intro p {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-size: 1.05rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #526173;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .feature-list li::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            background: #0f766e;
+            border-radius: 50%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* 右側：ログインフォーム */
+        .login-card {
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 12px;
+            padding: 36px;
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+        }
+
+        .login-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .login-card .subtitle {
+            color: #64748b;
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+
+        /* フラッシュメッセージ（Flask用） */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+
+        /* フォーム */
+        .form-group {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            color: #526173;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            color: #172033;
+            background: #f8fafc;
+            border: 1px solid #cdd6e2;
+            border-radius: 8px;
+            font: inherit;
+            font-size: 1rem;
+            transition: border-color 0.15s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0f766e;
+            background: #ffffff;
+        }
+
+        .button-full {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #dde3ee;
+        }
+
+        .register-link {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .register-link a {
+            color: #0f766e;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .register-link a:hover {
+            color: #0d6460;
+        }
+
+        /* フッター */
+        .footer {
+            padding: 28px 16px;
+            color: #e5eef7;
+            text-align: center;
+            background: #172033;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 760px) {
+            main {
+                grid-template-columns: 1fr;
+                margin-top: 40px;
+                gap: 32px;
+            }
+
+            .login-intro {
+                padding-right: 0;
+            }
+
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links,
+            .nav-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .login-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ナビバー -->
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="logo" href="index.html" aria-label="TicketHub home">
+                <span class="logo-mark">T</span>
+                <span>TicketHub</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html#events">Events</a>
+                <a href="booking.html">Tickets</a>
+                <a href="#support">Support</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="button button-primary" href="login.html">Login</a>
+                <a class="button button-secondary" href="register.html">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 左側：説明 -->
+        <div class="login-intro">
+            <span class="eyebrow">Welcome back</span>
+            <h1>Log in to your account</h1>
+            <p>Access your bookings, manage your tickets, and stay up to date with your upcoming events.</p>
+
+            <ul class="feature-list">
+                <li>View and manage your booking history</li>
+                <li>Book tickets for upcoming events</li>
+                <li>Post comments on events</li>
+                <li>Create and manage your own events</li>
+            </ul>
+        </div>
+
+        <!-- 右側：フォーム -->
+        <div class="login-card">
+            <h2>Sign in</h2>
+            <p class="subtitle">Enter your username and password to continue.</p>
+
+            <!-- Flaskのフラッシュメッセージ用（後でJinjaに変換） -->
+            <!-- <div class="alert">Incorrect username or password.</div> -->
+
+            <form action="/login" method="POST">
+                <!-- Flask-WTF用のCSRFトークン（後で追加） -->
+                <!-- {{ form.hidden_tag() }} -->
+
+                <div class="form-group">
+                    <label for="user_name">Username</label>
+                    <input
+                        type="text"
+                        id="user_name"
+                        name="user_name"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button class="button button-primary button-full" type="submit">
+                    Login
+                </button>
+            </form>
+
+            <div class="divider">or</div>
+
+            <p class="register-link">
+                New to TicketHub? <a href="register.html">Create an account</a>
+            </p>
+        </div>
+    </main>
+
+    <footer id="support" class="footer">
+        <p>TicketHub support | Secure event ticket booking</p>
+    </footer>
+
+</body>
+</html>
