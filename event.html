@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | TicketHub</title>
+    <title>Events | TicketHub</title>
     <style>
         /* Base page reset and shared typography */
         * {
@@ -108,21 +108,21 @@
             border-color: #93a3b8;
         }
 
-        /* Support page hero with a customer service background image */
+        /* Event page hero introduces the browsing experience */
         .hero {
             color: #ffffff;
             background:
-                linear-gradient(90deg, rgba(11, 27, 45, 0.92), rgba(11, 27, 45, 0.48)),
-                url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80") center/cover;
+                linear-gradient(90deg, rgba(11, 27, 45, 0.9), rgba(11, 27, 45, 0.48)),
+                url("https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1600&q=80") center/cover;
         }
 
         .hero-inner {
             width: min(1120px, calc(100% - 32px));
-            min-height: 360px;
+            min-height: 430px;
             margin: 0 auto;
             display: grid;
             align-items: center;
-            padding: 58px 0 68px;
+            padding: 64px 0 78px;
         }
 
         .hero-content {
@@ -139,7 +139,7 @@
 
         h1 {
             max-width: 760px;
-            font-size: clamp(2.3rem, 6vw, 4.4rem);
+            font-size: clamp(2.4rem, 6vw, 4.8rem);
             line-height: 1;
             letter-spacing: 0;
         }
@@ -157,87 +157,17 @@
             margin: 48px auto 72px;
         }
 
-        /* Main support layout pairs help information with the contact form */
-        .support-layout {
+        /* Filters help visitors narrow the event list */
+        .filter-panel {
             display: grid;
-            grid-template-columns: 1fr 1.15fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .info-panel,
-        .contact-card,
-        .faq-card {
+            grid-template-columns: 1.2fr 1fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 42px;
+            padding: 16px;
             background: #ffffff;
             border: 1px solid #dde3ee;
             border-radius: 8px;
             box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
-        }
-
-        .info-panel {
-            overflow: hidden;
-        }
-
-        .info-image {
-            min-height: 220px;
-            background:
-                linear-gradient(180deg, rgba(15, 118, 110, 0.1), rgba(23, 32, 51, 0.36)),
-                url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80") center/cover;
-        }
-
-        .info-body {
-            padding: 24px;
-        }
-
-        h2 {
-            font-size: clamp(1.7rem, 3vw, 2.35rem);
-            letter-spacing: 0;
-        }
-
-        .info-body p,
-        .contact-card p,
-        .faq-card p {
-            color: #64748b;
-            line-height: 1.65;
-        }
-
-        .support-list {
-            list-style: none;
-            display: grid;
-            gap: 14px;
-            margin-top: 22px;
-        }
-
-        .support-list li {
-            display: grid;
-            gap: 4px;
-            padding: 14px;
-            background: #f8fafc;
-            border: 1px solid #dde3ee;
-            border-radius: 8px;
-        }
-
-        .support-list strong {
-            color: #172033;
-        }
-
-        .support-list span {
-            color: #64748b;
-            line-height: 1.5;
-        }
-
-        .contact-card {
-            padding: 28px;
-        }
-
-        .contact-card > p {
-            margin-top: 10px;
-            margin-bottom: 24px;
-        }
-
-        form {
-            display: grid;
-            gap: 16px;
         }
 
         .field {
@@ -253,30 +183,15 @@
         }
 
         input,
-        select,
-        textarea {
+        select {
             width: 100%;
+            height: 46px;
             padding: 0 12px;
             color: #172033;
             background: #f8fafc;
             border: 1px solid #cdd6e2;
             border-radius: 8px;
             font: inherit;
-        }
-
-        input,
-        select {
-            height: 46px;
-        }
-
-        textarea {
-            min-height: 132px;
-            padding-top: 12px;
-            resize: vertical;
-        }
-
-        .faq-section {
-            margin-top: 48px;
         }
 
         .section-heading {
@@ -287,27 +202,90 @@
             margin-bottom: 22px;
         }
 
-        /* FAQ cards answer common support questions */
+        h2 {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            letter-spacing: 0;
+        }
+
         .section-heading p {
             max-width: 430px;
             color: #64748b;
             line-height: 1.6;
         }
 
-        .faq-grid {
+        /* Event cards show details, starting price, and booking link */
+        .event-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 18px;
         }
 
-        .faq-card {
-            padding: 20px;
+        .event-card {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
         }
 
-        .faq-card h3 {
+        .event-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        .event-body {
+            padding: 18px;
+        }
+
+        .event-meta {
             margin-bottom: 10px;
-            font-size: 1.1rem;
+            color: #0f766e;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .event-body h3 {
+            font-size: 1.18rem;
             line-height: 1.35;
+        }
+
+        .event-body p {
+            margin: 10px 0 16px;
+            color: #64748b;
+            line-height: 1.55;
+        }
+
+        .event-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .price {
+            color: #172033;
+            font-size: 1.08rem;
+            font-weight: 800;
+        }
+
+        .banner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+            margin-top: 48px;
+            padding: 28px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .banner p {
+            margin-top: 8px;
+            color: #d7f7f2;
+            line-height: 1.6;
         }
 
         .footer {
@@ -330,9 +308,15 @@
                 flex-wrap: wrap;
             }
 
-            .support-layout,
-            .faq-grid {
+            .filter-panel,
+            .event-grid,
+            .banner {
                 grid-template-columns: 1fr;
+            }
+
+            .filter-panel .button,
+            .banner .button {
+                width: 100%;
             }
 
             .section-heading {
@@ -343,8 +327,8 @@
 
         @media (max-width: 560px) {
             .hero-inner {
-                min-height: 340px;
-                padding: 44px 0 54px;
+                min-height: 390px;
+                padding: 44px 0 58px;
             }
 
             .nav-links {
@@ -352,9 +336,13 @@
                 font-size: 0.92rem;
             }
 
-            .nav-actions .button,
-            .contact-card .button {
-                width: 100%;
+            .nav-actions .button {
+                flex: 1;
+            }
+
+            .event-footer {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
     </style>
@@ -381,103 +369,143 @@
         </nav>
     </header>
 
-    <!-- Support page introduction -->
+    <!-- Event browsing page introduction -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
-                <div class="eyebrow">Customer support</div>
-                <h1>Help with bookings, tickets, and event details.</h1>
-                <p>Contact TicketHub support for booking questions, account help, payment issues, or event information.</p>
+                <div class="eyebrow">Upcoming events</div>
+                <h1>Find the right event for your next night out.</h1>
+                <p>Browse concerts, sports, theatre, and festival tickets in one place before continuing to the booking page.</p>
             </div>
         </div>
     </section>
 
     <main>
-        <!-- Contact area with help categories and a support form -->
-        <section class="support-layout">
-            <aside class="info-panel">
-                <div class="info-image" role="img" aria-label="Support team working together"></div>
-                <div class="info-body">
-                    <h2>How We Can Help</h2>
-                    <p>Our support team can assist with common ticket booking questions before and after you reserve your place.</p>
+        <!-- Search and filter controls for the events page -->
+        <form class="filter-panel" aria-label="Filter events">
+            <div class="field">
+                <label for="event-search">Search</label>
+                <input id="event-search" type="search" placeholder="Event name or performer">
+            </div>
+            <div class="field">
+                <label for="date">Date</label>
+                <select id="date">
+                    <option>Any date</option>
+                    <option>This week</option>
+                    <option>This month</option>
+                    <option>Next month</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option>All categories</option>
+                    <option>Music</option>
+                    <option>Sports</option>
+                    <option>Theatre</option>
+                    <option>Festival</option>
+                </select>
+            </div>
+            <button class="button button-primary" type="submit">Search</button>
+        </form>
 
-                    <ul class="support-list">
-                        <li>
-                            <strong>Booking Support</strong>
-                            <span>Get help choosing an event, ticket type, or quantity.</span>
-                        </li>
-                        <li>
-                            <strong>Account Help</strong>
-                            <span>Ask about login, registration, and customer details.</span>
-                        </li>
-                        <li>
-                            <strong>Event Information</strong>
-                            <span>Check event times, locations, and ticket availability.</span>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-
-            <section class="contact-card">
-                <h2>Contact Support</h2>
-                <p>Send a message and the support team will review your request.</p>
-
-                <form>
-                    <div class="field">
-                        <label for="name">Full Name</label>
-                        <input id="name" name="name" type="text" placeholder="Enter your full name">
-                    </div>
-
-                    <div class="field">
-                        <label for="email">Email</label>
-                        <input id="email" name="email" type="email" placeholder="you@example.com">
-                    </div>
-
-                    <div class="field">
-                        <label for="topic">Support Topic</label>
-                        <select id="topic" name="topic">
-                            <option>Booking question</option>
-                            <option>Payment issue</option>
-                            <option>Account help</option>
-                            <option>Event information</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Write your question here"></textarea>
-                    </div>
-
-                    <button class="button button-primary" type="submit">Send Message</button>
-                </form>
-            </section>
-        </section>
-
-        <!-- Frequently asked questions for common booking problems -->
-        <section class="faq-section">
+        <!-- Featured events available for ticket reservation -->
+        <section>
             <div class="section-heading">
                 <div>
-                    <h2>Common Questions</h2>
+                    <h2>Featured Events</h2>
                 </div>
-                <p>Quick answers for common TicketHub booking and event questions.</p>
+                <p>Choose an event below and use the ticket button to start your reservation.</p>
             </div>
 
-            <div class="faq-grid">
-                <article class="faq-card">
-                    <h3>How do I book a ticket?</h3>
-                    <p>Go to the booking page, select your event and ticket type, then submit your details.</p>
+            <div class="event-grid">
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80" alt="Crowd at a live concert">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Friday 8:00 PM</div>
+                        <h3>Neon Nights Live Concert</h3>
+                        <p>Live city concert with standard, premium, and VIP ticket options.</p>
+                        <div class="event-footer">
+                            <span class="price">From $59</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
                 </article>
 
-                <article class="faq-card">
-                    <h3>Can I change my ticket?</h3>
-                    <p>Contact support with your event name and booking details so the team can review your request.</p>
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80" alt="Stadium during a sports match">
+                    <div class="event-body">
+                        <div class="event-meta">Sports | Sunday 3:30 PM</div>
+                        <h3>Championship Final Match</h3>
+                        <p>Reserve seats for the biggest match of the season.</p>
+                        <div class="event-footer">
+                            <span class="price">From $49</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
                 </article>
 
-                <article class="faq-card">
-                    <h3>Where can I find events?</h3>
-                    <p>Use the events page to browse concerts, sports, theatre, festivals, and featured tickets.</p>
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80" alt="Theatre stage with red curtains">
+                    <div class="event-body">
+                        <div class="event-meta">Theatre | Saturday 7:00 PM</div>
+                        <h3>Broadway Evening Show</h3>
+                        <p>An elegant theatre performance with comfortable reserved seating.</p>
+                        <div class="event-footer">
+                            <span class="price">From $65</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=900&q=80" alt="Outdoor music festival stage">
+                    <div class="event-body">
+                        <div class="event-meta">Festival | Saturday 12:00 PM</div>
+                        <h3>Summer Field Festival</h3>
+                        <p>Outdoor food, music, and entertainment across multiple stages.</p>
+                        <div class="event-footer">
+                            <span class="price">From $39</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80" alt="Singer performing under stage lights">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Thursday 7:30 PM</div>
+                        <h3>Acoustic Sessions</h3>
+                        <p>A relaxed live performance featuring local artists and guest acts.</p>
+                        <div class="event-footer">
+                            <span class="price">From $35</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80" alt="Large concert stage with lights">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Friday 9:00 PM</div>
+                        <h3>City Lights DJ Night</h3>
+                        <p>Late-night electronic music event with general admission tickets.</p>
+                        <div class="event-footer">
+                            <span class="price">From $45</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
                 </article>
             </div>
+        </section>
+
+        <!-- Final call-to-action for visitors ready to book -->
+        <section class="banner">
+            <div>
+                <h2>Ready to reserve your place?</h2>
+                <p>Continue to the booking page to select your event, ticket type, and quantity.</p>
+            </div>
+            <a class="button button-secondary" href="booking.html">Book Tickets</a>
         </section>
     </main>
 
