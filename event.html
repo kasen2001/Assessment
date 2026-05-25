@@ -1,1 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | TicketHub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #f5f7fb;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid #dde3ee;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .logo-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #526173;
+            font-weight: 700;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            color: #ffffff;
+            background: #d9480f;
+        }
+
+        .button-primary:hover {
+            background: #bf3e0c;
+        }
+
+        .button-secondary {
+            color: #172033;
+            background: #ffffff;
+            border-color: #cdd6e2;
+        }
+
+        .button-secondary:hover {
+            border-color: #93a3b8;
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(11, 27, 45, 0.9), rgba(11, 27, 45, 0.48)),
+                url("https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1600&q=80") center/cover;
+        }
+
+        .hero-inner {
+            width: min(1120px, calc(100% - 32px));
+            min-height: 430px;
+            margin: 0 auto;
+            display: grid;
+            align-items: center;
+            padding: 64px 0 78px;
+        }
+
+        .hero-content {
+            max-width: 680px;
+        }
+
+        .eyebrow {
+            margin-bottom: 14px;
+            color: #9ee7de;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 760px;
+            font-size: clamp(2.4rem, 6vw, 4.8rem);
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .hero p {
+            max-width: 560px;
+            margin-top: 20px;
+            color: #e5eef7;
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 48px auto 72px;
+        }
+
+        .filter-panel {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr auto;
+            gap: 12px;
+            margin-bottom: 42px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        label {
+            color: #526173;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 46px;
+            padding: 0 12px;
+            color: #172033;
+            background: #f8fafc;
+            border: 1px solid #cdd6e2;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            letter-spacing: 0;
+        }
+
+        .section-heading p {
+            max-width: 430px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .event-card {
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+        }
+
+        .event-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        .event-body {
+            padding: 18px;
+        }
+
+        .event-meta {
+            margin-bottom: 10px;
+            color: #0f766e;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .event-body h3 {
+            font-size: 1.18rem;
+            line-height: 1.35;
+        }
+
+        .event-body p {
+            margin: 10px 0 16px;
+            color: #64748b;
+            line-height: 1.55;
+        }
+
+        .event-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .price {
+            color: #172033;
+            font-size: 1.08rem;
+            font-weight: 800;
+        }
+
+        .banner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+            margin-top: 48px;
+            padding: 28px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .banner p {
+            margin-top: 8px;
+            color: #d7f7f2;
+            line-height: 1.6;
+        }
+
+        .footer {
+            padding: 28px 16px;
+            color: #e5eef7;
+            text-align: center;
+            background: #172033;
+        }
+
+        @media (max-width: 860px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links,
+            .nav-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .filter-panel,
+            .event-grid,
+            .banner {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-panel .button,
+            .banner .button {
+                width: 100%;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-inner {
+                min-height: 390px;
+                padding: 44px 0 58px;
+            }
+
+            .nav-links {
+                gap: 14px;
+                font-size: 0.92rem;
+            }
+
+            .nav-actions .button {
+                flex: 1;
+            }
+
+            .event-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="logo" href="index.html" aria-label="TicketHub home">
+                <span class="logo-mark">T</span>
+                <span>TicketHub</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="event.html">Events</a>
+                <a href="support.html">Support</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="button button-secondary" href="login.html">Login</a>
+                <a class="button button-primary" href="booking.html">Book Tickets</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="eyebrow">Upcoming events</div>
+                <h1>Find the right event for your next night out.</h1>
+                <p>Browse concerts, sports, theatre, and festival tickets in one place before continuing to the booking page.</p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <form class="filter-panel" aria-label="Filter events">
+            <div class="field">
+                <label for="event-search">Search</label>
+                <input id="event-search" type="search" placeholder="Event name or performer">
+            </div>
+            <div class="field">
+                <label for="date">Date</label>
+                <select id="date">
+                    <option>Any date</option>
+                    <option>This week</option>
+                    <option>This month</option>
+                    <option>Next month</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option>All categories</option>
+                    <option>Music</option>
+                    <option>Sports</option>
+                    <option>Theatre</option>
+                    <option>Festival</option>
+                </select>
+            </div>
+            <button class="button button-primary" type="submit">Search</button>
+        </form>
+
+        <section>
+            <div class="section-heading">
+                <div>
+                    <h2>Featured Events</h2>
+                </div>
+                <p>Choose an event below and use the ticket button to start your reservation.</p>
+            </div>
+
+            <div class="event-grid">
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80" alt="Crowd at a live concert">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Friday 8:00 PM</div>
+                        <h3>Neon Nights Live Concert</h3>
+                        <p>Live city concert with standard, premium, and VIP ticket options.</p>
+                        <div class="event-footer">
+                            <span class="price">From $59</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80" alt="Stadium during a sports match">
+                    <div class="event-body">
+                        <div class="event-meta">Sports | Sunday 3:30 PM</div>
+                        <h3>Championship Final Match</h3>
+                        <p>Reserve seats for the biggest match of the season.</p>
+                        <div class="event-footer">
+                            <span class="price">From $49</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80" alt="Theatre stage with red curtains">
+                    <div class="event-body">
+                        <div class="event-meta">Theatre | Saturday 7:00 PM</div>
+                        <h3>Broadway Evening Show</h3>
+                        <p>An elegant theatre performance with comfortable reserved seating.</p>
+                        <div class="event-footer">
+                            <span class="price">From $65</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=900&q=80" alt="Outdoor music festival stage">
+                    <div class="event-body">
+                        <div class="event-meta">Festival | Saturday 12:00 PM</div>
+                        <h3>Summer Field Festival</h3>
+                        <p>Outdoor food, music, and entertainment across multiple stages.</p>
+                        <div class="event-footer">
+                            <span class="price">From $39</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80" alt="Singer performing under stage lights">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Thursday 7:30 PM</div>
+                        <h3>Acoustic Sessions</h3>
+                        <p>A relaxed live performance featuring local artists and guest acts.</p>
+                        <div class="event-footer">
+                            <span class="price">From $35</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80" alt="Large concert stage with lights">
+                    <div class="event-body">
+                        <div class="event-meta">Music | Friday 9:00 PM</div>
+                        <h3>City Lights DJ Night</h3>
+                        <p>Late-night electronic music event with general admission tickets.</p>
+                        <div class="event-footer">
+                            <span class="price">From $45</span>
+                            <a class="button button-primary" href="booking.html">Ticket</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="banner">
+            <div>
+                <h2>Ready to reserve your place?</h2>
+                <p>Continue to the booking page to select your event, ticket type, and quantity.</p>
+            </div>
+            <a class="button button-secondary" href="booking.html">Book Tickets</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>TicketHub support | Secure event ticket booking</p>
+    </footer>
+</body>
+</html>
 
