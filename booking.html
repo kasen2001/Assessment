@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Tickets | TicketHub</title>
     <style>
+        /* Base page reset and shared typography */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -28,6 +29,7 @@
             border-bottom: 1px solid #dde3ee;
         }
 
+        /* Simple booking page navigation */
         .nav {
             width: min(980px, calc(100% - 32px));
             margin: 0 auto;
@@ -105,6 +107,7 @@
             letter-spacing: 0;
         }
 
+        /* Two-column booking form with a visual summary panel */
         .booking-panel {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -170,6 +173,7 @@
             font-weight: 800;
         }
 
+        /* Stack the booking form on smaller screens */
         @media (max-width: 760px) {
             .nav,
             .booking-panel {
@@ -184,6 +188,7 @@
     </style>
 </head>
 <body>
+    <!-- Header keeps a quick path back to the homepage -->
     <header class="site-header">
         <nav class="nav" aria-label="Booking navigation">
             <a class="logo" href="index.html">
@@ -195,11 +200,13 @@
     </header>
 
     <main>
+        <!-- Page title explains the booking task -->
         <section class="page-title">
             <h1>Book Your Ticket</h1>
             <p>Select an event, choose ticket quantity, and enter your details to reserve your place.</p>
         </section>
 
+        <!-- Ticket reservation form and booking summary -->
         <section class="booking-panel">
             <form>
                 <div class="field">
@@ -208,6 +215,9 @@
                         <option>Neon Nights Live Concert</option>
                         <option>Championship Final Match</option>
                         <option>Broadway Evening Show</option>
+                        <option>Summer Field Festival</option>
+                        <option>Acoustic Sessions</option>
+                        <option>City Lights DJ Night</option>
                     </select>
                 </div>
 
