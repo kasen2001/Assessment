@@ -1,1 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | TicketHub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #f5f7fb;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid #dde3ee;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .logo-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            color: #ffffff;
+            background: #0f766e;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #526173;
+            font-weight: 700;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .button-primary {
+            color: #ffffff;
+            background: #d9480f;
+        }
+
+        .button-primary:hover {
+            background: #bf3e0c;
+        }
+
+        .button-secondary {
+            color: #172033;
+            background: #ffffff;
+            border-color: #cdd6e2;
+        }
+
+        .button-secondary:hover {
+            border-color: #93a3b8;
+        }
+
+        .hero {
+            color: #ffffff;
+            background:
+                linear-gradient(90deg, rgba(11, 27, 45, 0.92), rgba(11, 27, 45, 0.48)),
+                url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80") center/cover;
+        }
+
+        .hero-inner {
+            width: min(1120px, calc(100% - 32px));
+            min-height: 360px;
+            margin: 0 auto;
+            display: grid;
+            align-items: center;
+            padding: 58px 0 68px;
+        }
+
+        .hero-content {
+            max-width: 680px;
+        }
+
+        .eyebrow {
+            margin-bottom: 14px;
+            color: #9ee7de;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 760px;
+            font-size: clamp(2.3rem, 6vw, 4.4rem);
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .hero p {
+            max-width: 560px;
+            margin-top: 20px;
+            color: #e5eef7;
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 48px auto 72px;
+        }
+
+        .support-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .info-panel,
+        .contact-card,
+        .faq-card {
+            background: #ffffff;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+        }
+
+        .info-panel {
+            overflow: hidden;
+        }
+
+        .info-image {
+            min-height: 220px;
+            background:
+                linear-gradient(180deg, rgba(15, 118, 110, 0.1), rgba(23, 32, 51, 0.36)),
+                url("https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80") center/cover;
+        }
+
+        .info-body {
+            padding: 24px;
+        }
+
+        h2 {
+            font-size: clamp(1.7rem, 3vw, 2.35rem);
+            letter-spacing: 0;
+        }
+
+        .info-body p,
+        .contact-card p,
+        .faq-card p {
+            color: #64748b;
+            line-height: 1.65;
+        }
+
+        .support-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .support-list li {
+            display: grid;
+            gap: 4px;
+            padding: 14px;
+            background: #f8fafc;
+            border: 1px solid #dde3ee;
+            border-radius: 8px;
+        }
+
+        .support-list strong {
+            color: #172033;
+        }
+
+        .support-list span {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .contact-card {
+            padding: 28px;
+        }
+
+        .contact-card > p {
+            margin-top: 10px;
+            margin-bottom: 24px;
+        }
+
+        form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        label {
+            color: #526173;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0 12px;
+            color: #172033;
+            background: #f8fafc;
+            border: 1px solid #cdd6e2;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        input,
+        select {
+            height: 46px;
+        }
+
+        textarea {
+            min-height: 132px;
+            padding-top: 12px;
+            resize: vertical;
+        }
+
+        .faq-section {
+            margin-top: 48px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading p {
+            max-width: 430px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .faq-card {
+            padding: 20px;
+        }
+
+        .faq-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.35;
+        }
+
+        .footer {
+            padding: 28px 16px;
+            color: #e5eef7;
+            text-align: center;
+            background: #172033;
+        }
+
+        @media (max-width: 860px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links,
+            .nav-actions {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .support-layout,
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-inner {
+                min-height: 340px;
+                padding: 44px 0 54px;
+            }
+
+            .nav-links {
+                gap: 14px;
+                font-size: 0.92rem;
+            }
+
+            .nav-actions .button,
+            .contact-card .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="logo" href="index.html" aria-label="TicketHub home">
+                <span class="logo-mark">T</span>
+                <span>TicketHub</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="event.html">Events</a>
+                <a href="support.html">Support</a>
+            </div>
+
+            <div class="nav-actions">
+                <a class="button button-secondary" href="login.html">Login</a>
+                <a class="button button-primary" href="booking.html">Book Tickets</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="eyebrow">Customer support</div>
+                <h1>Help with bookings, tickets, and event details.</h1>
+                <p>Contact TicketHub support for booking questions, account help, payment issues, or event information.</p>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="support-layout">
+            <aside class="info-panel">
+                <div class="info-image" role="img" aria-label="Support team working together"></div>
+                <div class="info-body">
+                    <h2>How We Can Help</h2>
+                    <p>Our support team can assist with common ticket booking questions before and after you reserve your place.</p>
+
+                    <ul class="support-list">
+                        <li>
+                            <strong>Booking Support</strong>
+                            <span>Get help choosing an event, ticket type, or quantity.</span>
+                        </li>
+                        <li>
+                            <strong>Account Help</strong>
+                            <span>Ask about login, registration, and customer details.</span>
+                        </li>
+                        <li>
+                            <strong>Event Information</strong>
+                            <span>Check event times, locations, and ticket availability.</span>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="contact-card">
+                <h2>Contact Support</h2>
+                <p>Send a message and the support team will review your request.</p>
+
+                <form>
+                    <div class="field">
+                        <label for="name">Full Name</label>
+                        <input id="name" name="name" type="text" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com">
+                    </div>
+
+                    <div class="field">
+                        <label for="topic">Support Topic</label>
+                        <select id="topic" name="topic">
+                            <option>Booking question</option>
+                            <option>Payment issue</option>
+                            <option>Account help</option>
+                            <option>Event information</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your question here"></textarea>
+                    </div>
+
+                    <button class="button button-primary" type="submit">Send Message</button>
+                </form>
+            </section>
+        </section>
+
+        <section class="faq-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Common Questions</h2>
+                </div>
+                <p>Quick answers for common TicketHub booking and event questions.</p>
+            </div>
+
+            <div class="faq-grid">
+                <article class="faq-card">
+                    <h3>How do I book a ticket?</h3>
+                    <p>Go to the booking page, select your event and ticket type, then submit your details.</p>
+                </article>
+
+                <article class="faq-card">
+                    <h3>Can I change my ticket?</h3>
+                    <p>Contact support with your event name and booking details so the team can review your request.</p>
+                </article>
+
+                <article class="faq-card">
+                    <h3>Where can I find events?</h3>
+                    <p>Use the events page to browse concerts, sports, theatre, festivals, and featured tickets.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>TicketHub support | Secure event ticket booking</p>
+    </footer>
+</body>
+</html>
 
