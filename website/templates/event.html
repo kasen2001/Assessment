@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events | TicketHub</title>
     <style>
+        /* Base page reset and shared typography */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -107,6 +108,7 @@
             border-color: #93a3b8;
         }
 
+        /* Event page hero introduces the browsing experience */
         .hero {
             color: #ffffff;
             background:
@@ -155,6 +157,7 @@
             margin: 48px auto 72px;
         }
 
+        /* Filters help visitors narrow the event list */
         .filter-panel {
             display: grid;
             grid-template-columns: 1.2fr 1fr 1fr auto;
@@ -210,6 +213,7 @@
             line-height: 1.6;
         }
 
+        /* Event cards show details, starting price, and booking link */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -291,6 +295,7 @@
             background: #172033;
         }
 
+        /* Responsive layout adjustments for tablets and phones */
         @media (max-width: 860px) {
             .nav {
                 align-items: flex-start;
@@ -343,6 +348,7 @@
     </style>
 </head>
 <body>
+    <!-- Main navigation shared across the TicketHub pages -->
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="logo" href="index.html" aria-label="TicketHub home">
@@ -363,6 +369,7 @@
         </nav>
     </header>
 
+    <!-- Event browsing page introduction -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
@@ -374,6 +381,7 @@
     </section>
 
     <main>
+        <!-- Search and filter controls for the events page -->
         <form class="filter-panel" aria-label="Filter events">
             <div class="field">
                 <label for="event-search">Search</label>
@@ -401,6 +409,7 @@
             <button class="button button-primary" type="submit">Search</button>
         </form>
 
+        <!-- Featured events available for ticket reservation -->
         <section>
             <div class="section-heading">
                 <div>
@@ -490,6 +499,7 @@
             </div>
         </section>
 
+        <!-- Final call-to-action for visitors ready to book -->
         <section class="banner">
             <div>
                 <h2>Ready to reserve your place?</h2>
@@ -504,4 +514,3 @@
     </footer>
 </body>
 </html>
-

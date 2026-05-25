@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicketHub | Event Ticket Booking</title>
     <style>
+        /* Base page reset and shared typography */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -105,6 +106,7 @@
             border-color: #93a3b8;
         }
 
+        /* Homepage hero with background image and main call-to-action */
         .hero {
             color: #ffffff;
             background:
@@ -155,6 +157,7 @@
             margin-top: 30px;
         }
 
+        /* Search form placed below the hero for quick event filtering */
         .search-panel {
             width: min(1120px, calc(100% - 32px));
             margin: -44px auto 0;
@@ -216,6 +219,7 @@
             line-height: 1.6;
         }
 
+        /* Reusable event card grid for featured tickets */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -266,6 +270,7 @@
             background: #172033;
         }
 
+        /* Responsive layout adjustments for tablets and phones */
         @media (max-width: 860px) {
             .nav {
                 align-items: flex-start;
@@ -311,6 +316,7 @@
     </style>
 </head>
 <body>
+    <!-- Main navigation shared across the TicketHub pages -->
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="logo" href="index.html" aria-label="TicketHub home">
@@ -331,6 +337,7 @@
         </nav>
     </header>
 
+    <!-- Homepage introduction and primary booking links -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
@@ -345,6 +352,7 @@
         </div>
     </section>
 
+    <!-- Event search controls for visitors browsing tickets -->
     <form class="search-panel" aria-label="Search events">
         <div class="field">
             <label for="event-search">Event</label>
@@ -368,6 +376,7 @@
     </form>
 
     <main>
+        <!-- Featured ticket cards link directly to the booking page -->
         <section id="events">
             <div class="section-heading">
                 <div>

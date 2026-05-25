@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support | TicketHub</title>
     <style>
+        /* Base page reset and shared typography */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -107,6 +108,7 @@
             border-color: #93a3b8;
         }
 
+        /* Support page hero with a customer service background image */
         .hero {
             color: #ffffff;
             background:
@@ -155,6 +157,7 @@
             margin: 48px auto 72px;
         }
 
+        /* Main support layout pairs help information with the contact form */
         .support-layout {
             display: grid;
             grid-template-columns: 1fr 1.15fr;
@@ -284,6 +287,7 @@
             margin-bottom: 22px;
         }
 
+        /* FAQ cards answer common support questions */
         .section-heading p {
             max-width: 430px;
             color: #64748b;
@@ -313,6 +317,7 @@
             background: #172033;
         }
 
+        /* Responsive layout adjustments for tablets and phones */
         @media (max-width: 860px) {
             .nav {
                 align-items: flex-start;
@@ -355,6 +360,7 @@
     </style>
 </head>
 <body>
+    <!-- Main navigation shared across the TicketHub pages -->
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="logo" href="index.html" aria-label="TicketHub home">
@@ -375,6 +381,7 @@
         </nav>
     </header>
 
+    <!-- Support page introduction -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-content">
@@ -386,6 +393,7 @@
     </section>
 
     <main>
+        <!-- Contact area with help categories and a support form -->
         <section class="support-layout">
             <aside class="info-panel">
                 <div class="info-image" role="img" aria-label="Support team working together"></div>
@@ -445,6 +453,7 @@
             </section>
         </section>
 
+        <!-- Frequently asked questions for common booking problems -->
         <section class="faq-section">
             <div class="section-heading">
                 <div>
@@ -477,4 +486,3 @@
     </footer>
 </body>
 </html>
-
