@@ -23,7 +23,6 @@
             text-decoration: none;
         }
 
-        /* ナビバー */
         .site-header {
             position: sticky;
             top: 0;
@@ -108,7 +107,7 @@
             border-color: #93a3b8;
         }
 
-        /* メインコンテンツ */
+
         main {
             width: min(1120px, calc(100% - 32px));
             margin: 60px auto 80px;
@@ -118,7 +117,7 @@
             align-items: center;
         }
 
-        /* 左側：説明エリア */
+
         .login-intro {
             padding-right: 24px;
         }
@@ -175,7 +174,7 @@
             background-position: center;
         }
 
-        /* 右側：ログインフォーム */
+
         .login-card {
             background: #ffffff;
             border: 1px solid #dde3ee;
@@ -195,7 +194,7 @@
             font-size: 0.95rem;
         }
 
-        /* フラッシュメッセージ（Flask用） */
+ 
         .alert {
             padding: 12px 16px;
             border-radius: 8px;
@@ -207,7 +206,7 @@
             color: #856404;
         }
 
-        /* フォーム */
+
         .form-group {
             display: grid;
             gap: 6px;
@@ -280,7 +279,7 @@
             color: #0d6460;
         }
 
-        /* フッター */
+
         .footer {
             padding: 28px 16px;
             color: #e5eef7;
@@ -288,7 +287,7 @@
             background: #172033;
         }
 
-        /* レスポンシブ */
+ 
         @media (max-width: 760px) {
             main {
                 grid-template-columns: 1fr;
@@ -321,7 +320,7 @@
 </head>
 <body>
 
-    <!-- ナビバー -->
+
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="logo" href="index.html" aria-label="TicketHub home">
@@ -343,7 +342,7 @@
     </header>
 
     <main>
-        <!-- 左側：説明 -->
+  
         <div class="login-intro">
             <span class="eyebrow">Welcome back</span>
             <h1>Log in to your account</h1>
@@ -357,17 +356,15 @@
             </ul>
         </div>
 
-        <!-- 右側：フォーム -->
+    
         <div class="login-card">
             <h2>Sign in</h2>
             <p class="subtitle">Enter your username and password to continue.</p>
 
-            <!-- Flaskのフラッシュメッセージ用（後でJinjaに変換） -->
-            <!-- <div class="alert">Incorrect username or password.</div> -->
+
 
             <form action="/login" method="POST">
-                <!-- Flask-WTF用のCSRFトークン（後で追加） -->
-                <!-- {{ form.hidden_tag() }} -->
+
 
                 <div class="form-group">
                     <label for="user_name">Username</label>
