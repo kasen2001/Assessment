@@ -1,4 +1,5 @@
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -6,72 +7,401 @@
     <title>Music Festival Events</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        :root {
+            --ink: #172033;
+            --muted: #64748b;
+            --line: #dde3ee;
+            --paper: #ffffff;
+            --wash: #f5f7fb;
+            --teal: #0f766e;
+            --teal-dark: #115e59;
+            --coral: #d9480f;
+            --coral-dark: #bf3e0c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--ink);
+            background:
+                linear-gradient(180deg, rgba(245, 247, 251, 0.82), var(--wash) 360px),
+                url("{{ url_for('static', filename='image/Night_fes_for_207group.jpg') }}") top center / 100% 360px no-repeat;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        main,
+        .page-shell {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--teal-dark);
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(14px);
+        }
+
+        .navbar {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 14px 0;
+        }
+
+        .navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            color: #ffffff;
+            background: var(--teal);
+            border-radius: 8px;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .nav-link {
+            color: #526173;
+            font-weight: 700;
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--ink);
+        }
+
+        .navbar-toggler {
+            border-color: var(--line);
+        }
+
+        .btn {
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        .btn-primary,
+        .btn-success {
+            background: var(--coral);
+            border-color: var(--coral);
+        }
+
+        .btn-primary:hover,
+        .btn-success:hover {
+            background: var(--coral-dark);
+            border-color: var(--coral-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .page-hero {
+            width: min(1120px, calc(100% - 32px));
+            min-height: 330px;
+            margin: 0 auto;
+            display: grid;
+            align-items: end;
+            padding: 74px 0 44px;
+            color: #000000;
+        }
+
+        .page-hero.compact {
+            min-height: 230px;
+            padding-bottom: 34px;
+        }
+
+        .page-hero h1 {
+            max-width: 760px;
+            margin: 0;
+            font-size: clamp(2.3rem, 6vw, 4.7rem);
+            line-height: 1;
+            letter-spacing: 0;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
+        }
+
+        .page-hero p {
+            max-width: 620px;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+
+        .eyebrow {
+            margin-bottom: 12px;
+            color:#3cd13c;
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .content-band {
+            margin: 34px auto 72px;
+        }
+
+        .surface {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+        }
+
+        .section-title {
+            margin-bottom: 22px;
+        }
+
+        .section-title h2,
+        .section-title h3 {
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .section-title p {
+            max-width: 680px;
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 46px;
+            background: #f8fafc;
+            border-color: #cdd6e2;
+            border-radius: 8px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.14);
+        }
+
+        .form-label {
+            color: #526173;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .event-card {
+            height: 100%;
+            overflow: hidden;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            box-shadow: 0 12px 35px rgba(23, 32, 51, 0.06);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .event-card .card-body {
+            padding: 20px;
+        }
+
+        .event-meta {
+            color: var(--teal);
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-weight: 800;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .detail-image {
+            width: 100%;
+            min-height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            padding: 14px;
+            background: #f8fafc;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .info-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-top: 4px;
+        }
+
+        .table {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            color: #ffffff;
+            background: var(--ink);
+            border-color: var(--ink);
+        }
+
+        .comment-card {
+            padding: 18px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .site-footer {
+            margin-top: auto;
+            padding: 28px 16px;
+            color: #e5eef7;
+            text-align: center;
+            background: var(--ink);
+        }
+
+        @media (max-width: 880px) {
+            .detail-grid,
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-image {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                background-size: auto 340px;
+            }
+
+            .page-hero {
+                min-height: 280px;
+                padding-top: 46px;
+            }
+
+            .content-band {
+                margin-top: 22px;
+            }
+
+            .event-card img {
+                height: 190px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <span class="brand-mark">M</span>
+                <span>Music Festival Events</span>
+            </a>
 
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                    Music Festival Events
-                </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto flex-row gap-3">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
-                        </li>
-
-                        {% if current_user.is_authenticated %}
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.create_event') }}">Create Event</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.logout') }}">
-                                Logout ({{ current_user.first_name }})
-                            </a>
-                        </li>
-
-                        {% else %}
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
-                        </li>
-
-                        {% endif %}
-
-                    </ul>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.support') }}">Support</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.create_event') }}">Create Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" href="{{ url_for('auth.logout') }}">Logout ({{ current_user.first_name }})</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{{ url_for('auth.register') }}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </nav>
 
-        <div class="container-fluid">
+        <div class="page-shell">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show mt-3 mb-0" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
@@ -85,8 +415,8 @@
 
     {% block content %}{% endblock %}
 
-    <footer class="bg-dark text-light text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2026 Music Festival Events</p>
+    <footer class="site-footer">
+        <p class="mb-0">&copy; 2026 Music Festival Events | Secure festival ticket booking</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
