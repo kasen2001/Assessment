@@ -7,6 +7,7 @@ from wtforms.fields import (
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Optional
 
 
+# Login form validates the two fields needed for existing users.
 class LoginForm(FlaskForm):
     email = StringField("Email Address", validators=[
         InputRequired(),
@@ -18,6 +19,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 
+# Registration form collects the user profile and confirms the password.
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[InputRequired()])
     surname = StringField("Surname", validators=[InputRequired()])
@@ -32,6 +34,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 
+# Event form is shared by the create and edit event pages.
 class EventForm(FlaskForm):
     title = StringField("Event Title", validators=[InputRequired(), Length(max=150)])
     description = TextAreaField("Description", validators=[InputRequired()])
@@ -63,6 +66,7 @@ class EventForm(FlaskForm):
     submit = SubmitField("Save Event")
 
 
+# Booking form limits each booking request to a small ticket quantity.
 class BookingForm(FlaskForm):
     quantity = IntegerField("Number of Tickets", validators=[
         InputRequired(),
@@ -71,6 +75,7 @@ class BookingForm(FlaskForm):
     submit = SubmitField("Book Now")
 
 
+# Comment form keeps event discussion messages short.
 class CommentForm(FlaskForm):
     comment_text = TextAreaField("Comment", validators=[
         InputRequired(),
