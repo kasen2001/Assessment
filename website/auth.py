@@ -5,12 +5,12 @@ from .models import User
 from .forms import LoginForm, RegisterForm
 from . import db
 
-# Create a blueprint - make sure all BPs have unique names
+# Authentication routes are grouped in their own blueprint.
 auth_bp = Blueprint('auth', __name__)
 
-# this is a hint for a login function
+
+# Login checks the submitted email and password, then redirects safely.
 @auth_bp.route('/login', methods=['GET', 'POST'])
-# view function
 def login():
     login_form = LoginForm()
     error = None
@@ -20,11 +20,11 @@ def login():
         user = db.session.scalar(db.select(User).where(User.email == email))
         if user is None:
             error = 'Incorrect email address'
-        elif not check_password_hash(user.password_hash, password): # takes the hash and cleartext password
+        elif not check_password_hash(user.password_hash, password): # Compare stored hash with submitted password.
             error = 'Incorrect password'
         if error is None:
             login_user(user)
-            nextp = request.args.get('next') # this gives the url from where the login page was accessed
+            nextp = request.args.get('next') # Original protected URL, if login was required first.
             print(nextp)
             if nextp is None or not nextp.startswith('/'):
                 return redirect(url_for('main.index'))
@@ -32,6 +32,9 @@ def login():
         else:
             flash(error)
     return render_template('user.html', form=login_form, heading='Login')
+
+
+# Register creates a user after validating the form and hashing the password.
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     register_form = RegisterForm()
@@ -63,6 +66,9 @@ def register():
         form=register_form,
         heading='Register'
     )
+
+
+# Logout clears the session and returns the user to the event list.
 @auth_bp.route('/logout')
 @login_required
 def logout():
