@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5 text-center">
-    <h1 class="display-1 text-muted">500</h1>
-    <h2>Internal Server Error</h2>
-    <p class="text-muted">Something went wrong on our end. Please try again later.</p>
-    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">Back to Home</a>
-</div>
+<!-- Error hero explains that the server hit an unexpected problem. -->
+<section class="page-hero compact">
+    <div>
+        <h1>500 Internal Server Error</h1>
+        <p>Something went wrong on our end. Please try again later.</p>
+    </div>
+</section>
+
+<main class="content-band">
+    <!-- Recovery action gives users a stable place to continue browsing. -->
+    <section class="surface p-4 text-center">
+        <h2 class="h4">Try again from the home page</h2>
+        <p class="text-muted">If the problem continues, contact support with the event details.</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary">Back to Home</a>
+    </section>
+</main>
 {% endblock %}
