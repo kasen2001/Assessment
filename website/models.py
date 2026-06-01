@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 
 
+# User accounts own events, bookings, and comments.
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -14,11 +15,13 @@ class User(db.Model, UserMixin):
     street_address = db.Column(db.String(255), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
+    # Relationships make it easy to load a user's created events and activity.
     my_events = db.relationship('Event', backref='creator', lazy=True)
     bookings = db.relationship('Booking', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
 
 
+# Event stores all public listing information and ticket availability.
 class Event(db.Model):
     __tablename__ = 'events'
 
@@ -41,10 +44,12 @@ class Event(db.Model):
     acknowledgement_text = db.Column(db.Text, nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    # Deleting an event also removes its dependent bookings and comments.
     bookings = db.relationship('Booking', backref='event', lazy=True, cascade='all, delete-orphan')
     comments = db.relationship('Comment', backref='event', lazy=True, cascade='all, delete-orphan')
 
 
+# Booking records a user's ticket purchase for one event.
 class Booking(db.Model):
     __tablename__ = 'bookings'
 
@@ -56,6 +61,7 @@ class Booking(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
 
 
+# Comment stores user feedback on an event detail page.
 class Comment(db.Model):
     __tablename__ = 'comments'
 
