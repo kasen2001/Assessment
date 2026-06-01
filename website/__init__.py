@@ -8,7 +8,6 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.debug = True
     app.secret_key = 'somesecretkey'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sitedata.sqlite'
     db.init_app(app)
@@ -32,11 +31,11 @@ def create_app():
     app.register_blueprint(auth.auth_bp)
 
     @app.errorhandler(404)
-    def page_not_found(e):
+    def page_not_found(error):
         return render_template('404.html'), 404
 
     @app.errorhandler(500)
-    def internal_error(e):
+    def internal_error(error):
         return render_template('500.html'), 500
-
+    
     return app
