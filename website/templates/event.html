@@ -113,7 +113,7 @@
             color: #ffffff;
             background:
                 linear-gradient(90deg, rgba(11, 27, 45, 0.9), rgba(11, 27, 45, 0.48)),
-                url("https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1600&q=80") center/cover;
+                url("{{ url_for('static', filename='image/Night_fes_for_207group.jpg') }}") center/cover;
         }
 
         .hero-inner {
@@ -420,7 +420,7 @@
 
             <div class="event-grid">
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80" alt="Crowd at a live concert">
+                    <img src="{{ url_for('static', filename='image/Night_fes_for_207group.jpg') }}" alt="Crowd at a live concert">
                     <div class="event-body">
                         <div class="event-meta">Music | Friday 8:00 PM</div>
                         <h3>Neon Nights Live Concert</h3>
@@ -433,7 +433,7 @@
                 </article>
 
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80" alt="Stadium during a sports match">
+                    <img src="{{ url_for('static', filename='image/Brisbane_for_207group.jpg') }}" alt="Stadium during a sports match">
                     <div class="event-body">
                         <div class="event-meta">Sports | Sunday 3:30 PM</div>
                         <h3>Championship Final Match</h3>
@@ -446,7 +446,7 @@
                 </article>
 
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80" alt="Theatre stage with red curtains">
+                    <img src="{{ url_for('static', filename='image/Japan_for_207group.jpg') }}" alt="Theatre stage with red curtains">
                     <div class="event-body">
                         <div class="event-meta">Theatre | Saturday 7:00 PM</div>
                         <h3>Broadway Evening Show</h3>
@@ -459,7 +459,7 @@
                 </article>
 
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=900&q=80" alt="Outdoor music festival stage">
+                    <img src="{{ url_for('static', filename='image/Night_fes_for_207group.jpg') }}" alt="Outdoor music festival stage">
                     <div class="event-body">
                         <div class="event-meta">Festival | Saturday 12:00 PM</div>
                         <h3>Summer Field Festival</h3>
@@ -472,7 +472,7 @@
                 </article>
 
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80" alt="Singer performing under stage lights">
+                    <img src="{{ url_for('static', filename='image/Brisbane_for_207group.jpg') }}" alt="Singer performing under stage lights">
                     <div class="event-body">
                         <div class="event-meta">Music | Thursday 7:30 PM</div>
                         <h3>Acoustic Sessions</h3>
@@ -485,7 +485,7 @@
                 </article>
 
                 <article class="event-card">
-                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80" alt="Large concert stage with lights">
+                    <img src="{{ url_for('static', filename='image/Japan_for_207group.jpg') }}" alt="Large concert stage with lights">
                     <div class="event-body">
                         <div class="event-meta">Music | Friday 9:00 PM</div>
                         <h3>City Lights DJ Night</h3>
