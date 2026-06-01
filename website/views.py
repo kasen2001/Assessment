@@ -9,12 +9,14 @@ from . import db
 main_bp = Blueprint('main', __name__)
 
 
+# Home page lists events and applies optional search filters.
 @main_bp.route('/')
 def index():
     search = request.args.get('search', '').strip()
     genre = request.args.get('genre', '').strip()
     city = request.args.get('city', '').strip()
 
+    # Build the query step by step so each filter remains optional.
     query = Event.query
     if search:
         query = query.filter(Event.title.ilike(f'%{search}%'))
@@ -27,6 +29,7 @@ def index():
     return render_template('index.html', events=events, search=search, genre=genre, city=city)
 
 
+# Event detail page prepares the booking and comment forms.
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
@@ -36,12 +39,14 @@ def event_detail(event_id):
                            booking_form=booking_form, comment_form=comment_form)
 
 
+# Create event saves an uploaded image file and then inserts the event record.
 @main_bp.route('/event/create', methods=['GET', 'POST'])
 @login_required
 def create_event():
     form = EventForm()
     if form.validate_on_submit():
         image_filename = 'default.jpg'
+        # Store only the cleaned filename in the database.
         if form.image.data and form.image.data.filename:
             f = form.image.data
             filename = secure_filename(f.filename)
@@ -79,6 +84,7 @@ def create_event():
     return render_template('event_create.html', form=form)
 
 
+# Edit event only allows the original creator to update the listing.
 @main_bp.route('/event/<int:event_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_event(event_id):
@@ -88,6 +94,7 @@ def edit_event(event_id):
 
     form = EventForm(obj=event)
     if form.validate_on_submit():
+        # Keep total tickets above the number already sold.
         already_booked = sum(b.quantity for b in event.bookings)
         if form.total_tickets.data < already_booked:
             flash(f'Cannot reduce total tickets below the number already booked ({already_booked}).')
@@ -123,6 +130,7 @@ def edit_event(event_id):
     return render_template('event_edit.html', form=form, event=event)
 
 
+# Delete event removes the listing and cascades dependent records.
 @main_bp.route('/event/<int:event_id>/delete', methods=['POST'])
 @login_required
 def delete_event(event_id):
@@ -136,6 +144,7 @@ def delete_event(event_id):
     return redirect(url_for('main.index'))
 
 
+# Booking validates availability before creating a booking record.
 @main_bp.route('/event/<int:event_id>/book', methods=['POST'])
 @login_required
 def book_event(event_id):
@@ -153,6 +162,7 @@ def book_event(event_id):
             flash(f'Only {event.available_tickets} ticket(s) remaining.')
             return redirect(url_for('main.event_detail', event_id=event_id))
 
+        # Total price is stored at booking time so later price edits do not change it.
         booking = Booking(
             quantity=quantity,
             total_price=round(quantity * event.price, 2),
@@ -172,6 +182,7 @@ def book_event(event_id):
     return redirect(url_for('main.event_detail', event_id=event_id))
 
 
+# Add a comment to the selected event detail page.
 @main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
 @login_required
 def add_comment(event_id):
@@ -193,6 +204,7 @@ def add_comment(event_id):
     return redirect(url_for('main.event_detail', event_id=event_id))
 
 
+# Dashboard shows the current user's bookings and created events.
 @main_bp.route('/dashboard')
 @login_required
 def dashboard():
@@ -201,6 +213,13 @@ def dashboard():
     return render_template('dashboard.html', bookings=bookings, my_events=my_events)
 
 
+# Static support page for common booking and account questions.
 @main_bp.route('/support')
 def support():
     return render_template('support.html')
+
+
+# Test route used to check the 500 error template during development.
+@main_bp.route('/test500')
+def test500():
+    raise Exception('test error')
