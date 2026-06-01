@@ -1,100 +1,115 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">My Dashboard</h2>
-    <p class="text-muted">Welcome, <strong>{{ current_user.first_name }} {{ current_user.surname }}</strong></p>
-
-    <!-- My Bookings -->
-    <h4 class="mt-4">My Bookings</h4>
-    {% if bookings %}
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Event</th>
-                    <th>Date</th>
-                    <th>Qty</th>
-                    <th>Total Paid</th>
-                    <th>Booked On</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in bookings %}
-                <tr>
-                    <td>
-                        <a href="{{ url_for('main.event_detail', event_id=booking.event.id) }}">
-                            {{ booking.event.title }}
-                        </a>
-                    </td>
-                    <td>{{ booking.event.date.strftime('%d %b %Y') }}</td>
-                    <td>{{ booking.quantity }}</td>
-                    <td>${{ "%.2f"|format(booking.total_price) }}</td>
-                    <td>{{ booking.booking_date.strftime('%d %b %Y %H:%M') }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<!-- Dashboard hero personalizes the account area for the current user. -->
+<section class="page-hero compact">
+    <div>
+        <div class="eyebrow">Account dashboard</div>
+        <h1>My Dashboard</h1>
+        <p>Welcome, {{ current_user.first_name }} {{ current_user.surname }}. Manage bookings and events from one place.</p>
     </div>
-    {% else %}
-    <p class="text-muted">You have no bookings yet. <a href="{{ url_for('main.index') }}">Browse events</a> to get started.</p>
-    {% endif %}
+</section>
 
-    <hr>
+<main class="content-band">
+    <!-- Booking table lists tickets the user has reserved. -->
+    <section class="surface p-4 mb-4">
+        <div class="section-title d-flex flex-wrap justify-content-between align-items-end gap-3">
+            <div>
+                <h2>My Bookings</h2>
+                <p>Tickets you have reserved for upcoming events.</p>
+            </div>
+        </div>
 
-    <!-- My Events -->
-    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-        <h4>My Events</h4>
-        <a href="{{ url_for('main.create_event') }}" class="btn btn-primary btn-sm">+ Create New Event</a>
-    </div>
+        {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Qty</th>
+                        <th>Total Paid</th>
+                        <th>Booked On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('main.event_detail', event_id=booking.event.id) }}">
+                                {{ booking.event.title }}
+                            </a>
+                        </td>
+                        <td>{{ booking.event.date.strftime('%d %b %Y') }}</td>
+                        <td>{{ booking.quantity }}</td>
+                        <td>${{ "%.2f"|format(booking.total_price) }}</td>
+                        <td>{{ booking.booking_date.strftime('%d %b %Y %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">You have no bookings yet. <a href="{{ url_for('main.index') }}">Browse events</a> to get started.</p>
+        {% endif %}
+    </section>
 
-    {% if my_events %}
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Tickets Sold</th>
-                    <th>Available</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in my_events %}
-                <tr>
-                    <td>
-                        <a href="{{ url_for('main.event_detail', event_id=event.id) }}">
-                            {{ event.title }}
-                        </a>
-                    </td>
-                    <td>{{ event.date.strftime('%d %b %Y') }}</td>
-                    <td>
-                        {% if event.status == 'Open' %}
-                        <span class="badge bg-success">{{ event.status }}</span>
-                        {% elif event.status == 'Sold Out' %}
-                        <span class="badge bg-danger">{{ event.status }}</span>
-                        {% elif event.status == 'Cancelled' %}
-                        <span class="badge bg-secondary">{{ event.status }}</span>
-                        {% else %}
-                        <span class="badge bg-warning text-dark">{{ event.status }}</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ event.total_tickets - event.available_tickets }}</td>
-                    <td>{{ event.available_tickets }}</td>
-                    <td>
-                        <a href="{{ url_for('main.edit_event', event_id=event.id) }}"
-                            class="btn btn-warning btn-sm">Edit</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <p class="text-muted">You haven't created any events yet.</p>
-    {% endif %}
+    <!-- Event table lists events created by the current user. -->
+    <section class="surface p-4">
+        <div class="section-title d-flex flex-wrap justify-content-between align-items-end gap-3">
+            <div>
+                <h2>My Events</h2>
+                <p>Events you have created and their current ticket status.</p>
+            </div>
+            <a href="{{ url_for('main.create_event') }}" class="btn btn-primary">Create New Event</a>
+        </div>
 
-</div>
+        {% if my_events %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Tickets Sold</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in my_events %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('main.event_detail', event_id=event.id) }}">
+                                {{ event.title }}
+                            </a>
+                        </td>
+                        <td>{{ event.date.strftime('%d %b %Y') }}</td>
+                        <td>
+                            {% if event.status == 'Open' %}
+                            <span class="badge bg-success status-badge">{{ event.status }}</span>
+                            {% elif event.status == 'Sold Out' %}
+                            <span class="badge bg-danger status-badge">{{ event.status }}</span>
+                            {% elif event.status == 'Cancelled' %}
+                            <span class="badge bg-secondary status-badge">{{ event.status }}</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark status-badge">{{ event.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ event.total_tickets - event.available_tickets }}</td>
+                        <td>{{ event.available_tickets }}</td>
+                        <td>
+                            <a href="{{ url_for('main.edit_event', event_id=event.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted mb-0">You haven't created any events yet.</p>
+        {% endif %}
+    </section>
+</main>
 {% endblock %}
