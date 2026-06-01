@@ -4,28 +4,66 @@
 <div class="container mt-4">
     <h1 class="mb-4">Music Festival Events</h1>
 
+    <!-- Search & Filter -->
+    <form method="GET" action="{{ url_for('main.index') }}" class="row g-2 mb-4">
+        <div class="col-md-5">
+            <input type="text" name="search" class="form-control"
+                placeholder="Search by event title..." value="{{ search }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="genre" class="form-control"
+                placeholder="Genre (e.g. Pop, EDM)..." value="{{ genre }}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="city" class="form-control"
+                placeholder="City..." value="{{ city }}">
+        </div>
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+            {% if search or genre or city %}
+            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary w-100">Clear</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <!-- Event Cards -->
+    {% if events %}
     <div class="row">
         {% for event in events %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
-                <img src="{{ url_for('static', filename='image/' + event.image) }}" class="card-img-top" alt="{{ event.title }}">
+                <img src="{{ url_for('static', filename='image/' + event.image) }}"
+                    class="card-img-top" alt="{{ event.title }}"
+                    style="height: 200px; object-fit: cover;">
 
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ event.title }}</h5>
-                    <p class="card-text">{{ event.description[:100] }}...</p>
+                    <p class="card-text text-muted small">{{ event.description[:100] }}...</p>
 
-                    <p><strong>Genre:</strong> {{ event.genre }}</p>
-                    <p><strong>City:</strong> {{ event.city }}</p>
-                    <p><strong>Date:</strong> {{ event.date }}</p>
-                    <p><strong>Status:</strong> {{ event.status }}</p>
+                    <p class="mb-1"><strong>Genre:</strong> {{ event.genre }}</p>
+                    <p class="mb-1"><strong>City:</strong> {{ event.city }}</p>
+                    <p class="mb-1"><strong>Date:</strong> {{ event.date.strftime('%d %b %Y') }}</p>
+                    <p class="mb-2">
+                        {% if event.status == 'Open' %}
+                        <span class="badge bg-success">{{ event.status }}</span>
+                        {% elif event.status == 'Sold Out' %}
+                        <span class="badge bg-danger">{{ event.status }}</span>
+                        {% elif event.status == 'Cancelled' %}
+                        <span class="badge bg-secondary">{{ event.status }}</span>
+                        {% else %}
+                        <span class="badge bg-warning text-dark">{{ event.status }}</span>
+                        {% endif %}
+                    </p>
 
-                    <a href="{{ url_for('main.event_detail', event_id=event.id) }}" class="btn btn-primary">
-                        View Details
-                    </a>
+                    <a href="{{ url_for('main.event_detail', event_id=event.id) }}"
+                        class="btn btn-primary mt-auto">View Details</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="alert alert-info">No events found matching your search.</div>
+    {% endif %}
 </div>
 {% endblock %}
