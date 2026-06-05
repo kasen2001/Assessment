@@ -5,6 +5,7 @@ from datetime import date, time, datetime
 
 app = create_app()
 
+# Seed script rebuilds the database with sample users, events, bookings, and comments.
 with app.app_context():
     # Clear existing data
     Comment.query.delete()
@@ -96,7 +97,67 @@ with app.app_context():
         creator_id=user2.id
     )
 
-    db.session.add_all([event1, event2, event3])
+    event4 = Event(
+        title='Brisbane Rock Revival',
+        description='A high-energy rock festival bringing together the best local and international rock bands for an unforgettable night of live music.',
+        date=date(2026, 10, 3),
+        start_time=time(16, 0),
+        end_time=time(23, 0),
+        venue_name='Suncorp Stadium',
+        city='Brisbane',
+        image='Festival_image_1.jpeg',
+        genre='Rock',
+        artist_lineup='The Midnight Wolves, Ironclad, Red Desert, The Vines',
+        price=95.00,
+        total_tickets=400,
+        available_tickets=320,
+        status='Cancelled',
+        acknowledgement_type='Generic Acknowledgement',
+        acknowledgement_text='We acknowledge the Traditional Custodians of the land on which this event takes place and pay our respects to Elders past and present.',
+        creator_id=user1.id
+    )
+
+    event5 = Event(
+        title='Hip-Hop Underground Brisbane',
+        description='A celebration of hip-hop culture featuring freestyle battles, live DJ sets, and performances from top underground artists.',
+        date=date(2025, 11, 15),
+        start_time=time(17, 0),
+        end_time=time(22, 0),
+        venue_name='The Tivoli Brisbane',
+        city='Brisbane',
+        image='Festival_image_2.jpg',
+        genre='Hip-Hop',
+        artist_lineup='MC Blaze, DJ Krown, Street Poets, Lyric Flow',
+        price=60.00,
+        total_tickets=200,
+        available_tickets=200,
+        status='Inactive',
+        acknowledgement_type='No Acknowledgement',
+        acknowledgement_text=None,
+        creator_id=user2.id
+    )
+
+    event6 = Event(
+        title='Brisbane World Music Summit',
+        description='The biggest music festival of the year, bringing together iconic Japanese and international artists across multiple stages for an epic two-day celebration.',
+        date=date(2026, 12, 20),
+        start_time=time(11, 0),
+        end_time=time(23, 59),
+        venue_name='Brisbane Showgrounds',
+        city='Brisbane',
+        image='Festival_image_3.jpg',
+        genre='Multi-Genre',
+        artist_lineup='King Gnu, Sakanaction, Hikaru Utada, YOASOBI, Perfume, Arashi, Taylor Swift, Bruno Mars, Billie Eilish, Kendrick Lamar, Coldplay, NewJeans',
+        price=199.00,
+        total_tickets=5000,
+        available_tickets=5000,
+        status='Open',
+        acknowledgement_type='Enhanced Acknowledgement',
+        acknowledgement_text='This event proudly acknowledges the Turrbal and Jagera peoples as the Traditional Custodians of the Brisbane region and honours their enduring connection to Country.',
+        creator_id=user1.id
+    )
+
+    db.session.add_all([event1, event2, event3, event4, event5, event6])
     db.session.commit()
 
     # Sample booking
